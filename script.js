@@ -92,6 +92,8 @@ const makeMovieCards = (movieObjects) => {
         moviePoster.alt = `Movie poster image for ${element.original_title}`; 
 
 
+        movieCard.addEventListener("click", (e) => { makeMoviePopUp(element)}); 
+
         // add all new html elements to movieCard
         movieCard.appendChild(moviePoster);
         movieCard.appendChild(movieTitle); 
@@ -101,6 +103,65 @@ const makeMovieCards = (movieObjects) => {
         moviesGrid.appendChild(movieCard); 
     });
 };
+
+const fetchMovieURL = async (movieObject) => {
+
+    const movieID = movieObject.id; 
+    const res = await fetch(`https://api.themoviedb.org/3/movie/${movieID}/videos?api_key=${API_KEY}`); 
+    const data = await res.json(); 
+
+    const movieURL = data.results[0].key; 
+    if (movieURL) {
+        return movieURL; 
+    }
+    else {
+        return null; 
+    }
+
+}
+
+const makeMoviePopUp =  async (movieObject) => {
+    console.log("here"); 
+    const moviePopUpCard = document.createElement("div"); 
+    const moviePopUpVideo = document.createElement("iframe"); 
+    const moviePopUpTitle = document.createElement("h2"); 
+    const moviePopUpVotes = document.createElement("h4"); 
+    const moviePopUpDesc = document.createElement("h3"); 
+
+    moviePopUpCard.classList.add("movie-popup-card"); 
+    moviePopUpVideo.classList.add("movie-popup-video"); 
+    moviePopUpTitle.classList.add("movie-popup-title"); 
+    moviePopUpVotes.classList.add("movie-popup-votes"); 
+    moviePopUpDesc.classList.add("movie-popup-desc"); 
+
+
+    moviePopUpTitle.innerHTML = movieObject.original_title; 
+    moviePopUpDesc.innerHTML = movieObject.overview; 
+    moviePopUpVotes.innerHTML = movieObject.vote_average; 
+{/* <iframe id="modal-video" SameSite="None" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe> */}
+    const movieURL = await fetchMovieURL(movieObject); 
+    console.log(movieURL); 
+    if (movieURL) {
+        moviePopUpVideo.src = `https://www.youtube.com/embed/${movieURL}`
+        // moviePopUpVideo.allow = "accelerometer"; 
+        moviePopUpVideo.setAttribute("id", "movie-video");
+        moviePopUpVideo.setAttribute("allow", "accelerometer");
+        moviePopUpVideo.setAttribute("frameborder", 0); 
+        moviePopUpVideo.toggleAttribute("autoplay"); 
+    }
+    else {
+        moviePopUpVideo.remove(); 
+    }
+
+
+    moviePopUpCard.appendChild(moviePopUpVideo); 
+    moviePopUpCard.appendChild(moviePopUpTitle); 
+    moviePopUpCard.appendChild(moviePopUpDesc); 
+    moviePopUpCard.appendChild(moviePopUpVotes); 
+
+    moviesGrid.append(moviePopUpCard); 
+
+}
 
 const addEventListeners = () => {
 
