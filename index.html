@@ -1,4 +1,4 @@
-<<!DOCTYPE html>
+<!DOCTYPE html>
 <html>
     <head>
         <meta charset="utf-8">
@@ -9,7 +9,25 @@
         <link rel="stylesheet" href="style.css">
     </head>
     <body>
-        
+        <div class="header-container">
+            <h1>Flixster</h1>
+
+            <div id="header-container-right">
+                <button id="close-search-btn">Close Search</button>
+                <form id="search-form">
+                    <input id="search-input" name="query" placeholder="Movie Search" required> 
+                </form>
+            </div>
+            
+        </div>
+
+        <div id="main-container">
+            <div id="movies-grid">
+                
+            </div>
+            <button id="load-more-movies-btn">Load More Movies</button>
+        </div>
+    
         
         <script src="script.js" async defer></script>
     </body>
