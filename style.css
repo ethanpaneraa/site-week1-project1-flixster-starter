@@ -1,3 +1,163 @@
+@import url('https://fonts.googleapis.com/css2?family=Comfortaa:wght@300&family=Inter:wght@400;500;800&display=swap');
+
 body {
     background-color: #222222; 
+}
+
+.header-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    flex-wrap: wrap;
+    padding: 2rem;
+    cursor: pointer;
+}
+
+.header-container  h1 {
+    font-family: "Inter", sans-serif;
+    font-weight: 800;
+    font-size: 48px;
+    color: white;
+}
+#search-input {
+    font-size: 18px;
+    font-family: "Inter", sans-serif;
+    font-weight: 300px;
+    border-radius: 7px;
+    border: solid 2px white; 
+    background-color: white;
+}
+
+#close-search-btn {
+    margin: 1rem; 
+    border: solid 5px darkgray;
+    border-radius: 7px;
+    background-color: darkgray;
+    font-size: 15px; 
+    font-family: 'Inter', sans-serif;
+    
+}
+
+#movies-grid {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around; 
+    align-items: center;
+}
+
+#load-more-movies-btn {
+    padding: 11px;
+    border: solid 5px darkgray;
+    border-radius: 7px;
+    background-color: darkgray;
+    font-size: 18px; 
+    font-family: 'Inter', sans-serif;
+}
+
+#load-more-btn-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.movie-popup-card {
+    background-color:#151515;
+    position: fixed;
+    top: 50vh;
+    left: 50vw;
+    transform: translate(-50%, -50%);
+    z-index: 2;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 2%;
+}
+
+.movie-popup-card-background {
+    background-color: black;
+    opacity: 0.75;
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    cursor: pointer;
+}
+
+.movie-card {
+    height: fit-content;
+    text-align: center;
+}
+
+.movie-title {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    font-size: 24px;
+    color: white;
+    font-family: "Inter", sans-serif;
+    inline-size: 320px; 
+}
+
+.movie-votes {
+    font-family: "Inter", sans-serif;
+    color: white;
+}
+
+.movie-poster {
+    border-radius: 8px;
+    cursor: pointer;
+}
+
+
+.movie-poster:hover {
+    transform: translateY(-7px);
+    filter: brightness(60%);
+}
+
+.movie-popup-title {
+    font-family: "Inter", sans-serif;
+    font-weight: 500;
+    font-size: 32px;
+    text-align: center;
+    color: white;
+}
+
+.movie-popup-desc {
+    font-family: "Inter", sans-serif;
+    font-weight: 400;
+    font-size: 18px;
+    text-align: center;
+    color: white;
+}
+
+.movie-popup-votes {
+    font-family: "Inter", sans-serif;
+    font-size: 24px;
+    color: white;
+}
+
+.movie-popup-close-button {
+    padding: 11px;
+    margin: 1rem;
+    border: none;
+    border-radius: 7px;
+    background-color: black;
+    color: white;
+    cursor: pointer;
+    font-size: 18px;
+}
+
+.movie-popup-video {
+    width: 100%;
+    height: 400px; 
+}
+
+.movie-card-image {
+    width: 300px;
+    height: 500px;
 }

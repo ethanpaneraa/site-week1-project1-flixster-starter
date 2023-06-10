@@ -22,21 +22,38 @@ const fetchData = async () => {
 
 };
 
+const refreshPage = () => {
+    location.reload(); 
+}
+
 const fetchQueriedMovieData = async (query) => {
-    // Make sure that query is valid
     moviesGrid.innerHTML = ""; 
+    const queryText = query.target.query.value; 
+    // Make sure that query is valid
     if (query) {
-        const URL = `https://api.themoviedb.org/3/search/movie?api_key=${API_KEY}&page=${pagesNum}&query=${query.target.query.value}`;
+        const URL = `https://api.themoviedb.org/3/search/movie?api_key=${API_KEY}&page=${pagesNum}&query=${queryText}`;
         const res = await fetch(URL); 
         const data = await res.json(); 
         pagesNum += 1; 
-        makeMovieCards(data.results)
+
+        if (data.results.length != 0) {
+            makeMovieCards(data.results);
+        }
+        else {
+            alert("No movies found :("); 
+            pagesNum = 0; 
+            searchForm.reset(); 
+            fetchData(); 
+        }
     }
 
     else {
+        alert(`No movies found with ${queryText}`)
         fetchData(); 
 
     }
+
+    makeCloseSearchButton(); 
 };
 
 const clearMoviesGrid = async () => {
@@ -47,6 +64,7 @@ const clearMoviesGrid = async () => {
     const res = await fetch(URL); 
     const data = await res.json(); 
 
+    destoryCloseSearchButton(); 
     makeMovieCards(data.results); 
 
 }
@@ -86,13 +104,23 @@ const makeMovieCards = (movieObjects) => {
         moviePoster.classList.add("movie-poster");
 
         // Setting the adding movie information to created html elements
-        movieTitle.innerHTML = element.original_title; 
-        movieVotes.innerHTML = element.vote_average;
+        movieTitle.innerHTML = element.title; 
+        const movieVotesValue = element.vote_average; 
+        if (movieVotesValue >= 7) {
+            movieVotes.innerHTML = `🌟 ${movieVotesValue}`
+        }
+        else if (movieVotesValue >= 5 && movieVotesValue <= 7) {
+            movieVotes.innerHTML = `😬 ${movieVotesValue}`
+        }
+        else {
+            movieVotes.innerHTML = `👎 ${movieVotesValue}`
+        }
+
         moviePoster.src = getMoviePosterPath(element); 
         moviePoster.alt = `Movie poster image for ${element.original_title}`; 
+        
 
-
-        movieCard.addEventListener("click", (e) => { makeMoviePopUp(element)}); 
+        moviePoster.addEventListener("click", (e) => { makeMoviePopUp(element)}); 
 
         // add all new html elements to movieCard
         movieCard.appendChild(moviePoster);
@@ -120,25 +148,66 @@ const fetchMovieURL = async (movieObject) => {
 
 }
 
+const makeCloseSearchButton = () => {
+    
+    const headerContainer = document.querySelector(".header-container"); 
+    const closeSearchButton = document.createElement("button"); 
+    closeSearchButton.setAttribute("id", "close-search-btn"); 
+    closeSearchButton.innerHTML = "Reset Search"; 
+    closeSearchButton.addEventListener("click", clearMoviesGrid); 
+    headerContainer.appendChild(closeSearchButton); 
+
+}
+
+const destoryCloseSearchButton = () => {
+
+    const closeSearchButton = document.querySelector("#close-search-btn"); 
+    closeSearchButton.remove(); 
+
+}
+
+const destoryMoviePopUp = () => {
+
+    const moviePopUp = document.querySelector(".movie-popup-card"); 
+    const moviePopUpCardBackground = document.querySelector(".movie-popup-card-background");
+    moviePopUp.remove(); 
+    moviePopUpCardBackground.remove(); 
+
+}
+
 const makeMoviePopUp =  async (movieObject) => {
     console.log("here"); 
     const moviePopUpCard = document.createElement("div"); 
+    const moviePopUpCardBackground = document.createElement("div"); 
     const moviePopUpVideo = document.createElement("iframe"); 
     const moviePopUpTitle = document.createElement("h2"); 
     const moviePopUpVotes = document.createElement("h4"); 
     const moviePopUpDesc = document.createElement("h3"); 
+    const moviePopUpCloseButton = document.createElement("button"); 
 
-    moviePopUpCard.classList.add("movie-popup-card"); 
+    moviePopUpCard.setAttribute("class", "movie-popup-card");
+    moviePopUpCardBackground.classList.add("movie-popup-card-background") 
     moviePopUpVideo.classList.add("movie-popup-video"); 
     moviePopUpTitle.classList.add("movie-popup-title"); 
     moviePopUpVotes.classList.add("movie-popup-votes"); 
     moviePopUpDesc.classList.add("movie-popup-desc"); 
+    moviePopUpCloseButton.classList.add("movie-popup-close-button"); 
 
 
-    moviePopUpTitle.innerHTML = movieObject.original_title; 
+    moviePopUpTitle.innerHTML = movieObject.title; 
     moviePopUpDesc.innerHTML = movieObject.overview; 
-    moviePopUpVotes.innerHTML = movieObject.vote_average; 
-{/* <iframe id="modal-video" SameSite="None" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe> */}
+    if (movieObject.vote_average >= 7) {
+        moviePopUpVotes.innerHTML = `🌟 ${movieObject.vote_average}`
+    }
+    else if (movieObject.vote_average >= 5 && movieObject.vote_average <= 7) {
+        moviePopUpVotes.innerHTML = `😬 ${movieObject.vote_average}`
+    }
+    else {
+        moviePopUpVotes.innerHTML = `👎 ${movieObject.vote_average}`
+    }
+
+    moviePopUpCloseButton.innerHTML = "Close Pop Up"; 
+
     const movieURL = await fetchMovieURL(movieObject); 
     console.log(movieURL); 
     if (movieURL) {
@@ -153,27 +222,32 @@ const makeMoviePopUp =  async (movieObject) => {
         moviePopUpVideo.remove(); 
     }
 
-
-    moviePopUpCard.appendChild(moviePopUpVideo); 
-    moviePopUpCard.appendChild(moviePopUpTitle); 
+    moviePopUpCardBackground.addEventListener("click", destoryMoviePopUp); 
+    moviePopUpCloseButton.addEventListener("click", destoryMoviePopUp); 
+    moviePopUpCard.appendChild(moviePopUpTitle);
+    moviePopUpCard.appendChild(moviePopUpVideo);  
     moviePopUpCard.appendChild(moviePopUpDesc); 
     moviePopUpCard.appendChild(moviePopUpVotes); 
+    moviePopUpCard.appendChild(moviePopUpCloseButton); 
 
+
+    moviesGrid.append(moviePopUpCardBackground); 
     moviesGrid.append(moviePopUpCard); 
 
 }
 
 const addEventListeners = () => {
 
-    closeSearchButton.addEventListener("click", clearMoviesGrid); 
-
     searchForm.addEventListener("submit", (event) => {
         event.preventDefault(); 
         fetchQueriedMovieData(event); 
-    })
+    });
 
     moreMoviesButton.addEventListener("click", fetchData); 
 
+    const websiteHeaderTitle = document.querySelector("h1"); 
+    console.log(websiteHeaderTitle); 
+    websiteHeaderTitle.addEventListener("click", refreshPage); 
 };
 
 window.onload = () => {

@@ -2,11 +2,11 @@
 
 ## Week 1 Assignment: Flixster
 
-Submitted by: **NAME**
+Submitted by: Ethan Pineda
 
-Estimated time spent: **#** hours spent in total
+Estimated time spent: 8 hours spent in total
 
-Deployed Application (optional): [Flixster Deployed Site](ADD_LINK_HERE)
+Deployed Application (optional): [Flixster Deployed Site](https://ethanpaneraa.github.io/site-week1-project1-flixster-starter/)
 
 ### Application Features
 
@@ -29,41 +29,43 @@ Deployed Application (optional): [Flixster Deployed Site](ADD_LINK_HERE)
   - When a user hits 'Enter', it should send a search request to the movies API
   - The results from the search should be displayed on the page
   - There should be a close icon with an id of `close-search-btn` that exits the search, clears results, and shows the current movies displayed previously
-- [ ] Website accounts for basic HTML/CSS accessibility features
-- [ ] Website should be responsive
+- [x] Website accounts for basic HTML/CSS accessibility features
+- [x] Website should be responsive
 
 #### Stretch Features
 
 - [x] Deploy website using GitHub Pages.
 - [x] Allow user to view more details about a movie within a popup.
-- [ ] Improve the user experience through CSS & animation.
+- [x] Improve the user experience through CSS & animation.
 - [x] Allow movie video trailers to be played using [embedded YouTube](https://support.google.com/youtube/answer/171780?hl=en)
-- [ ] Implement anything else that you can get done to improve the app functionality!
+- [x] Implement anything else that you can get done to improve the app functionality!
 
 ### Walkthrough Video
 
-`TODO://` Add the embedded URL code to your animated app walkthrough below, `ADD_EMBEDDED_CODE_HERE`. Make sure the video or gif actually renders and animates when viewing this README. (🚫 Remove this paragraph after adding walkthrough video)
-
-`ADD_EMBEDDED_CODE_HERE`
+`https://www.loom.com/share/a808850eb29b41088a92df2f7b63b650`
 
 ### Reflection
 
 - Did the topics discussed in your labs prepare you to complete the assignment? Be specific, which features in your weekly assignment did you feel unprepared to complete?
 
-Add your response here
+I felt like the topics that were discussed and showcased during the labs were very helpful in getting started and finishing this project. I felt like the labs themsevles were really helpful as a reference point when I got stuck at any point and gave me the "skeleton" of the what I needed to do for this project. 
+
+The specific features from the weekly assingments that were really useful for me were working with the DOM using JavaScript in the first lab (Report Card Generator) and asynch/await functions from Giphy Party lab. 
 
 - If you had more time, what would you have done differently? Would you have added additional features? Changed the way your project responded to a particular event, etc.
   
-Add your response here
+If I had more time, I probably would have experimented more with the layout of the movies, I kind of just defaulted to the layout that was shown in the demo video and what everyone else was doing but I wish that I had more time to be able to try something different and test my UI/UX skills. Additionally, I would have also liked to add more functionaliy to the platform as a whole such as adding filtering buttons to filter movies even further besides searching. I would have also changed how my project responds to querying for additional movies, as I noticied that sometimes the additional movies don't relate at all to the query if the user entered a query for the search. 
 
 - Reflect on your project demo, what went well? Were there things that maybe didn't go as planned? Did you notice something that your peer did that you would like to try next time?
 
-Add your response here
+I did not particiapate in a project demop this week. 
 
 ### Open-source libraries used
 
-- Add any links to open-source libraries used in your project.
+N/A
 
 ### Shout out
 
 Give a shout out to somebody from your cohort that especially helped you during your project. This can be a fellow peer, instructor, TA, mentor, etc.
+
+Shout out to Gustavo, Gerardo, Favour, and Jessica who worked with me during Thursday evening to work on the project on Discord so we can help out each out if we got stuck or share ideas on how we wanted to approach certain parts of the project. Additionally, shout out to Josaelyn and Angelica who also stayed with me after session on Friday to work on finishing up the project as well! 
